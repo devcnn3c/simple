@@ -42,6 +42,21 @@ git.add('./*').then(result=>{console.log('add:', result)
 res.status(200).send('Added')});
 });
 
+app.get('/git/branch', (req,res)=>{
+  git.branch([]).then(result=>{console.log(result); res.status(200).send({'Current Branch':  result})})
+})
+
+app.post('/git/commit',async (req,res)=>{
+  let ans = await git.commit(req.body.message);
+  console.log('Commit message:', ans);
+})
+
+
+app.post('/git/push',async (req,res)=>{
+  let ans = await git.push('origin', 'master');
+})
+
+
 app.get('/git/pull', (req,res) => {
 
 
